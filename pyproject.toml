@@ -1,0 +1,39 @@
+[build-system]
+requires = ["setuptools>=68.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "mactools"
+version = "0.1.0"
+description = "macOS-native Claude-powered CLI tool suite — wraps Apple system tools with AI interpretation"
+requires-python = ">=3.12"
+license = {text = "MIT"}
+authors = [{name = "Eric Rihm", email = "eric@cobaltsystems.io"}]
+dependencies = [
+    "click>=8.0",
+]
+
+[project.optional-dependencies]
+ai = ["anthropic>=0.40"]
+dev = ["pytest>=8.0"]
+
+[project.scripts]
+opslog = "mactools_opslog.cli:main"
+opsmac = "mactools_opsmac.cli:main"
+maclaunch = "mactools_maclaunch.cli:main"
+macsec = "mactools_macsec.cli:main"
+macsign = "mactools_macsign.cli:main"
+macprivacy = "mactools_macprivacy.cli:main"
+macdefaults = "mactools_macdefaults.cli:main"
+macnet = "mactools_macnet.cli:main"
+macenergy = "mactools_macenergy.cli:main"
+macspot = "mactools_macspot.cli:main"
+macdisk = "mactools_macdisk.cli:main"
+macshortcuts = "mactools_macshortcuts.cli:main"
+
+[tool.setuptools.packages.find]
+include = ["mactools_*"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-v"
