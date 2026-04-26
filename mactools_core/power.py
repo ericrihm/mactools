@@ -111,7 +111,7 @@ def get_thermal_state() -> ThermalState:
     if not r.ok:
         return ThermalState()
     text = r.stdout.lower()
-    if "speed limit" in text:
+    if "speed_limit" in text:
         m = re.search(r"cpu_speed_limit\s*=\s*(\d+)", text)
         limit = int(m.group(1)) if m else 100
         level = "nominal" if limit == 100 else "throttled" if limit > 50 else "critical"
