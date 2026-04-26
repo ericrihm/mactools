@@ -30,6 +30,7 @@ macenergy = "mactools_macenergy.cli:main"
 macspot = "mactools_macspot.cli:main"
 macdisk = "mactools_macdisk.cli:main"
 macshortcuts = "mactools_macshortcuts.cli:main"
+macadmin = "mactools_macadmin.cli:main"
 
 [tool.setuptools.packages.find]
 include = ["mactools_*"]

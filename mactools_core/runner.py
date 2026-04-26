@@ -16,12 +16,14 @@ class RunResult:
     ok: bool
 
 
-def run(cmd: list[str], timeout: int = 30, sudo: bool = False) -> RunResult:
+def run(cmd: list[str], timeout: int = 30, sudo: bool = False,
+        env: dict | None = None, input_data: str | None = None) -> RunResult:
     if sudo:
         cmd = ["sudo", "-n", *cmd]
     try:
         r = subprocess.run(
             cmd, capture_output=True, text=True, timeout=timeout,
+            env=env, input=input_data,
         )
         return RunResult(
             stdout=r.stdout, stderr=r.stderr,
