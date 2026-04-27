@@ -8,6 +8,7 @@ from mactools_macadmin import engine
 
 
 @click.group()
+@click.version_option(version="0.1.0", prog_name="macadmin")
 def main():
     """macadmin — privileged macOS admin for AI agents.
 

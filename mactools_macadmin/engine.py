@@ -116,8 +116,7 @@ def tailscale_status() -> dict:
     if not r.ok:
         return {"status": "not_running", "error": r.stderr}
 
-    import json as _json
-    data = _json.loads(r.stdout)
+    data = json.loads(r.stdout)
     self_node = data.get("Self", {})
     peers = []
     for _, peer in data.get("Peer", {}).items():

@@ -26,17 +26,23 @@ def analyze(
     try:
         from anthropic import Anthropic
         client = Anthropic()
-        resp = client.messages.create(
-            model=model,
-            max_tokens=4096,
-            system=system_prompt,
-            messages=[{"role": "user", "content": context}],
-        )
-        return AnalysisResult(
-            text=resp.content[0].text, model=model,
-            analysis_type="api", ok=True,
-        )
-    except Exception:
+        try:
+            resp = client.messages.create(
+                model=model,
+                max_tokens=4096,
+                system=[{"type": "text", "text": system_prompt, "cache_control": {"type": "ephemeral"}}],
+                messages=[{"role": "user", "content": context}],
+            )
+            return AnalysisResult(
+                text=resp.content[0].text, model=model,
+                analysis_type="api", ok=True,
+            )
+        except Exception as e:
+            return AnalysisResult(
+                text=f"Analysis failed: {e}",
+                model=model, analysis_type="none", ok=False,
+            )
+    except ImportError:
         pass
 
     try:

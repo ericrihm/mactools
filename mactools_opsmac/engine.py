@@ -169,71 +169,7 @@ def compute_health_score(report: HealthReport) -> int:
       power     15 pts
       services  15 pts
     """
-    score = 0
-
-    # --- Hardware (20 pts) ---
-    hw_score = 20
-    if report.thermal.level == "throttled":
-        hw_score -= 5
-    elif report.thermal.level == "critical":
-        hw_score -= 15
-    if report.storage.smart_status.upper() in ("FAILED", "FAILING"):
-        hw_score -= 10
-    score += max(0, hw_score)
-
-    # --- Storage (20 pts) ---
-    st_score = 20
-    used_pct = report.storage.used_pct
-    if used_pct >= 95:
-        st_score -= 15
-    elif used_pct >= 85:
-        st_score -= 10
-    elif used_pct >= 70:
-        st_score -= 5
-    if report.storage.smart_status.upper() in ("FAILED", "FAILING"):
-        st_score -= 10
-    score += max(0, st_score)
-
-    # --- Security (30 pts) ---
-    sec = report.security
-    fw = report.firewall
-    sec_score = 30
-    if not sec.sip.enabled:
-        sec_score -= 10
-    if not sec.gatekeeper.enabled:
-        sec_score -= 8
-    if not sec.filevault.enabled:
-        sec_score -= 7
-    if not fw.enabled:
-        sec_score -= 5
-    if sec.remote_login:
-        sec_score -= 2
-    if fw.enabled and not fw.stealth:
-        sec_score -= 1
-    score += max(0, sec_score)
-
-    # --- Power (15 pts) ---
-    pw_score = 15
-    preventers = report.sleep_preventers
-    if len(preventers) >= 3:
-        pw_score -= 5
-    elif len(preventers) >= 1:
-        pw_score -= 2
-    if report.thermal.level != "nominal":
-        pw_score -= 3
-    score += max(0, pw_score)
-
-    # --- Services (15 pts) ---
-    svc_score = 15
-    if report.services.failed >= 5:
-        svc_score -= 10
-    elif report.services.failed >= 2:
-        svc_score -= 5
-    elif report.services.failed >= 1:
-        svc_score -= 2
-    score += max(0, svc_score)
-
-    return min(100, max(0, score))
+    return compute_score_breakdown(report)["total"]
 
 
 def compute_score_breakdown(report: HealthReport) -> dict[str, int]:
