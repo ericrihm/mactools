@@ -80,7 +80,7 @@ def list_apfs_containers() -> list[APFSContainer]:
                 name=v.get("Name", ""),
                 identifier=v.get("DeviceIdentifier", ""),
                 role=", ".join(v.get("Roles", [])),
-                capacity_bytes=v.get("CapacityInUse", 0),
+                capacity_bytes=v.get("CapacityQuota", 0) or v.get("CapacityInUse", 0),
                 used_bytes=v.get("CapacityInUse", 0),
                 encrypted=v.get("Encryption", False),
                 mounted=v.get("Mounted", False),

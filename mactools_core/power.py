@@ -76,7 +76,7 @@ def get_sleep_preventers() -> list[SleepPreventer]:
     preventers = []
     for line in r.stdout.splitlines():
         line = line.strip()
-        m = re.match(r"pid (\d+)\((\w+)\):\s+\[.*\]\s+(\S+)\s+named:\s+\"(.*)\"", line)
+        m = re.match(r"pid (\d+)\(([^)]+)\):\s+\[.*\]\s+(\S+)\s+named:\s+\"(.*)\"", line)
         if m:
             preventers.append(SleepPreventer(
                 pid=int(m.group(1)),

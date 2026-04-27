@@ -99,7 +99,7 @@ def enrich_from_plists(services: list[LaunchService]) -> list[LaunchService]:
                 svc.program_args = plist.get("ProgramArguments", [])
                 svc.run_at_load = plist.get("RunAtLoad", False)
                 svc.keep_alive = bool(plist.get("KeepAlive", False))
-            except (plistlib.InvalidFileException, PermissionError, FileNotFoundError, Exception):
+            except (plistlib.InvalidFileException, PermissionError, FileNotFoundError, OSError):
                 pass
     return services
 
@@ -115,7 +115,7 @@ def _build_plist_map() -> dict[str, Path]:
                     plist = plistlib.load(fh)
                 label = plist.get("Label", f.stem)
                 mapping[label] = f
-            except (plistlib.InvalidFileException, PermissionError, Exception):
+            except (plistlib.InvalidFileException, PermissionError, OSError):
                 mapping[f.stem] = f
     return mapping
 

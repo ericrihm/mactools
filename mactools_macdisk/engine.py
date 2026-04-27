@@ -12,23 +12,7 @@ from mactools_core.diskutil import (
     list_apfs_containers,
     list_disks,
 )
-
-
-# ---------------------------------------------------------------------------
-# Size formatting
-# ---------------------------------------------------------------------------
-
-def format_size(bytes_val: int) -> str:
-    """Return a human-readable size string (e.g. '234.5 GB', '1.2 TB')."""
-    if bytes_val <= 0:
-        return "0 B"
-    for unit in ("B", "KB", "MB", "GB", "TB", "PB"):
-        if bytes_val < 1024:
-            if unit == "B":
-                return f"{bytes_val} {unit}"
-            return f"{bytes_val:.1f} {unit}"
-        bytes_val /= 1024
-    return f"{bytes_val:.1f} EB"
+from mactools_core.output import format_bytes as format_size
 
 
 # ---------------------------------------------------------------------------

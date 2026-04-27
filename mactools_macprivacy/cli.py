@@ -5,7 +5,7 @@ from __future__ import annotations
 import click
 
 from mactools_core.output import color, print_findings, print_json, severity_icon, md_table
-from mactools_core.ai import analyze
+from mactools_core.ai import analyze as ai_analyze
 
 from mactools_macprivacy.engine import (
     audit_permissions,
@@ -38,7 +38,7 @@ def cmd_audit(as_json: bool, analyze: bool) -> None:
         print_json([e.as_dict() for e in entries])
         if analyze:
             context = _build_audit_context(entries)
-            result = analyze(RISK_ASSESSMENT_PROMPT, context)
+            result = ai_analyze(RISK_ASSESSMENT_PROMPT, context)
             click.echo("\n--- AI Analysis ---")
             click.echo(result.text)
         return
@@ -91,7 +91,7 @@ def cmd_audit(as_json: bool, analyze: bool) -> None:
         context = _build_audit_context(entries)
         click.echo(color("  AI Analysis", "info"))
         click.echo()
-        result = analyze(RISK_ASSESSMENT_PROMPT, context)
+        result = ai_analyze(RISK_ASSESSMENT_PROMPT, context)
         click.echo(result.text)
 
 

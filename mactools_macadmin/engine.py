@@ -4,7 +4,6 @@ from __future__ import annotations
 
 import json
 import os
-import re
 import socket
 from datetime import datetime, timezone
 from pathlib import Path
@@ -14,7 +13,7 @@ from mactools_core.admin import (
     get_sharing_status, has_sudoers_config, install_sudoers_config,
     prime_sudo_cache, askpass_path,
 )
-from mactools_core.runner import run, run_json
+from mactools_core.runner import run
 
 
 FLEET_DIR = Path.home() / ".interop" / "fleet"
@@ -116,7 +115,10 @@ def tailscale_status() -> dict:
     if not r.ok:
         return {"status": "not_running", "error": r.stderr}
 
-    data = json.loads(r.stdout)
+    try:
+        data = json.loads(r.stdout)
+    except json.JSONDecodeError:
+        return {"status": "error", "error": "invalid JSON from tailscale"}
     self_node = data.get("Self", {})
     peers = []
     for _, peer in data.get("Peer", {}).items():

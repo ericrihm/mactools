@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from dataclasses import dataclass, field
+from dataclasses import dataclass
 
 from mactools_core.network import (
     DNSResolver,
@@ -115,7 +115,7 @@ def diagnose_network(overview: NetworkOverview) -> list[NetworkIssue]:
 
     if not issues:
         issues.append(NetworkIssue(
-            severity="ok" if hasattr(NetworkIssue, "ok") else "info",
+            severity="ok",
             category="Overall",
             title="No network issues detected",
             detail="DNS, proxy, and interface configuration all appear normal.",

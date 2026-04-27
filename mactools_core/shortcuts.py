@@ -25,5 +25,5 @@ def run_shortcut(name: str, input_text: Optional[str] = None) -> str:
     cmd = ["shortcuts", "run", name]
     if input_text:
         cmd.extend(["--input-path", "-"])
-    r = run(cmd, timeout=30)
+    r = run(cmd, timeout=30, input_data=input_text)
     return r.stdout if r.ok else r.stderr

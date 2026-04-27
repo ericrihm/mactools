@@ -253,7 +253,6 @@ def stream(process: str | None, level: str) -> None:
 def triage(last: str, as_json: bool, analyze: bool) -> None:
     """Auto-triage: group errors by subsystem/process, rank by severity."""
     from mactools_opslog.engine import triage_errors, build_triage_report
-    from mactools_core.output import severity_icon
 
     entries = log_show(last=last, predicate="level >= error", level="error", limit=1000)
 

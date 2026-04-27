@@ -2,8 +2,6 @@
 
 from __future__ import annotations
 
-import json
-
 import click
 
 from mactools_core.defaults import list_domains, read_domain

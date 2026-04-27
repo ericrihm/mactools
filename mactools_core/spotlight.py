@@ -73,5 +73,5 @@ def get_metadata(path: str) -> FileMetadata:
         import plistlib
         data = plistlib.loads(r.stdout.encode() if isinstance(r.stdout, str) else r.stdout)
         return FileMetadata(path=path, attributes=data if isinstance(data, dict) else {})
-    except Exception:
+    except (plistlib.InvalidFileException, ValueError, KeyError):
         return FileMetadata(path=path)

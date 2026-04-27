@@ -100,9 +100,44 @@ def get_dns_config() -> list[DNSResolver]:
     return resolvers
 
 
+def get_proxy_config() -> ProxyConfig | None:
+    proxy = ProxyConfig()
+    any_enabled = False
+
+    for proto, flag, cmd_flag in [
+        ("http", "http_enabled", "-getwebproxy"),
+        ("https", "https_enabled", "-getsecurewebproxy"),
+        ("socks", "socks_enabled", "-getsocksfirewallproxy"),
+    ]:
+        r = run(["networksetup", cmd_flag, "Wi-Fi"])
+        if not r.ok:
+            continue
+        lines = {
+            k.strip().lower(): v.strip()
+            for line in r.stdout.splitlines()
+            if ":" in line
+            for k, v in [line.split(":", 1)]
+        }
+        enabled = lines.get("enabled", "no").lower() == "yes"
+        if enabled:
+            any_enabled = True
+            setattr(proxy, f"{proto}_enabled", True)
+            host = lines.get("server", "")
+            port = lines.get("port", "")
+            addr = f"{host}:{port}" if host and port and port != "0" else host
+            setattr(proxy, f"{proto}_proxy", addr)
+
+    r = run(["networksetup", "-getproxybypassdomains", "Wi-Fi"])
+    if r.ok:
+        proxy.exceptions = [d.strip() for d in r.stdout.splitlines() if d.strip()]
+
+    return proxy if any_enabled else None
+
+
 def get_network_overview() -> NetworkOverview:
     ports = get_hardware_ports()
     dns = get_dns_config()
+    proxy = get_proxy_config()
     r = run(["scutil", "--nwi"])
     active = ""
     if r.ok:
@@ -112,4 +147,4 @@ def get_network_overview() -> NetworkOverview:
                 if len(parts) > 1:
                     active = parts[1].strip().split()[0] if parts[1].strip() else ""
                     break
-    return NetworkOverview(ports=ports, dns_resolvers=dns, active_interface=active)
+    return NetworkOverview(ports=ports, dns_resolvers=dns, proxy=proxy, active_interface=active)

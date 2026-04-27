@@ -5,7 +5,7 @@ from __future__ import annotations
 import click
 
 from mactools_core.output import color, print_json, severity_icon, md_table
-from mactools_core.ai import analyze
+from mactools_core.ai import analyze as ai_analyze
 
 from mactools_macsign.engine import (
     scan_applications,
@@ -102,7 +102,7 @@ def cmd_scan(directory: str, as_json: bool, analyze: bool) -> None:
         print_json([r.as_dict() for r in results])
         if analyze:
             summary = _build_scan_summary(results)
-            ai_result = analyze(SCAN_SUMMARY_PROMPT, summary)
+            ai_result = ai_analyze(SCAN_SUMMARY_PROMPT, summary)
             click.echo("\n--- AI Analysis ---")
             click.echo(ai_result.text)
         return
@@ -142,7 +142,7 @@ def cmd_scan(directory: str, as_json: bool, analyze: bool) -> None:
         click.echo()
         click.echo(color("  AI Analysis", "info"))
         click.echo()
-        ai_result = analyze(SCAN_SUMMARY_PROMPT, summary)
+        ai_result = ai_analyze(SCAN_SUMMARY_PROMPT, summary)
         click.echo(ai_result.text)
 
 

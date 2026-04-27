@@ -86,9 +86,11 @@ def log_show(
     limit: int = 500,
 ) -> list[LogEntry]:
     cmd = ["log", "show", "--last", last, "--style", "compact"]
-    if predicate:
+    if predicate and process:
+        cmd.extend(["--predicate", f'({predicate}) AND process == "{process}"'])
+    elif predicate:
         cmd.extend(["--predicate", predicate])
-    if process:
+    elif process:
         cmd.extend(["--predicate", f'process == "{process}"'])
     if level:
         cmd.extend(["--info" if level == "info" else "--debug" if level == "debug" else ""])

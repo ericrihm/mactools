@@ -5,7 +5,7 @@ from __future__ import annotations
 import click
 
 from mactools_core.output import color, print_findings, print_json, severity_icon, md_table
-from mactools_core.ai import analyze
+from mactools_core.ai import analyze as ai_analyze
 
 from mactools_macsec.engine import audit_security, compute_security_score
 from mactools_macsec.ai import SECURITY_POSTURE_PROMPT, SECURITY_SCORE_PROMPT, REMEDIATION_PROMPT
@@ -30,7 +30,7 @@ def cmd_audit(as_json: bool, analyze: bool) -> None:
                 f"[{f.severity.upper()}] {f.title}: {f.detail}"
                 for f in findings
             )
-            result = analyze(SECURITY_POSTURE_PROMPT, context)
+            result = ai_analyze(SECURITY_POSTURE_PROMPT, context)
             click.echo("\n--- AI Analysis ---")
             click.echo(result.text)
         return
@@ -57,7 +57,7 @@ def cmd_audit(as_json: bool, analyze: bool) -> None:
         click.echo()
         click.echo(color("  AI Analysis", "info"))
         click.echo()
-        result = analyze(SECURITY_POSTURE_PROMPT, context)
+        result = ai_analyze(SECURITY_POSTURE_PROMPT, context)
         click.echo(result.text)
 
 

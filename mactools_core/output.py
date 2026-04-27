@@ -48,6 +48,16 @@ def severity_icon(level: str) -> str:
     return {"critical": "!!!", "warning": "!!", "info": "--", "ok": "OK"}.get(level, "??")
 
 
+def format_bytes(n: int) -> str:
+    if n >= 1_000_000_000_000:
+        return f"{n / 1_000_000_000_000:.1f} TB"
+    if n >= 1_000_000_000:
+        return f"{n / 1_000_000_000:.1f} GB"
+    if n >= 1_000_000:
+        return f"{n / 1_000_000:.1f} MB"
+    return f"{n:,} B"
+
+
 def print_findings(findings: list[dict], as_json: bool = False) -> None:
     if as_json:
         print_json(findings)

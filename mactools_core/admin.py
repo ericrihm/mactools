@@ -53,16 +53,15 @@ def get_sharing_status() -> dict:
                  "localhost", "echo", "ok"])
     status["remote_login"] = ssh_r.ok
 
-    ard_r = run(["ps", "aux"])
-    if ard_r.ok:
-        status["ard_agent"] = "ARDAgent" in ard_r.stdout
-        status["screen_sharing"] = "screensharingd" in ard_r.stdout
+    ps_r = run(["ps", "aux"])
+    if ps_r.ok:
+        status["ard_agent"] = "ARDAgent" in ps_r.stdout
+        status["screen_sharing"] = "screensharingd" in ps_r.stdout
+        status["file_sharing"] = "smbd" in ps_r.stdout
     else:
         status["ard_agent"] = False
         status["screen_sharing"] = False
-
-    smb_r = run(["ps", "aux"])
-    status["file_sharing"] = "smbd" in smb_r.stdout if smb_r.ok else False
+        status["file_sharing"] = False
 
     return status
 

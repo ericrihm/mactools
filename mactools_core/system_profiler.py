@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 from typing import Any, Optional
 
 from mactools_core.runner import run_plist, run
@@ -48,11 +48,7 @@ class FirewallInfo:
     stealth: bool = False
     block_all: bool = False
     allow_signed: bool = False
-    allowed_apps: list[str] = None
-
-    def __post_init__(self):
-        if self.allowed_apps is None:
-            self.allowed_apps = []
+    allowed_apps: list[str] = field(default_factory=list)
 
 
 def get_data_type(dtype: str) -> list[dict]:
@@ -92,8 +88,8 @@ def get_storage() -> list[StorageVolume]:
             filesystem=item.get("file_system", ""),
             size_bytes=int(item.get("size_in_bytes", 0) or 0),
             free_bytes=int(item.get("free_space_in_bytes", 0) or 0),
-            writable=item.get("writable", "yes") == "yes",
-            encrypted=item.get("encrypted", "no") == "yes",
+            writable=bool(item.get("writable", True)),
+            encrypted=bool(item.get("encrypted", False)),
         ))
     return volumes
 

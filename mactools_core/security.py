@@ -108,7 +108,7 @@ def check_codesign(path: str) -> CodeSignature:
         try:
             import plistlib
             sig.entitlements = plistlib.loads(r3.stdout.encode())
-        except Exception:
+        except (plistlib.InvalidFileException, ValueError):
             pass
     return sig
 
@@ -116,6 +116,7 @@ def check_codesign(path: str) -> CodeSignature:
 def get_security_posture() -> SecurityPosture:
     from mactools_core.system_profiler import get_firewall
     fw = get_firewall()
+    rm = _check_remote_management()
     return SecurityPosture(
         sip=get_sip_status(),
         gatekeeper=get_gatekeeper_status(),
@@ -123,4 +124,12 @@ def get_security_posture() -> SecurityPosture:
         firewall_enabled=fw.enabled,
         firewall_stealth=fw.stealth,
         remote_login=get_remote_login(),
+        remote_management=rm,
     )
+
+
+def _check_remote_management() -> bool:
+    r = run(["ps", "aux"])
+    if r.ok:
+        return "ARDAgent" in r.stdout or "screensharingd" in r.stdout
+    return False

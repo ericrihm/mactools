@@ -68,6 +68,16 @@ class AuditFinding:
     detail: str
     program: Optional[str] = None
 
+    def as_dict(self) -> dict:
+        return {
+            "label": self.label,
+            "risk": self.risk,
+            "category": self.category,
+            "title": self.title,
+            "detail": self.detail,
+            "program": self.program,
+        }
+
 
 def classify_risk(service: LaunchService) -> str:
     """Return risk level: safe / low / medium / high."""

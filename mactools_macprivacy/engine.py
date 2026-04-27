@@ -156,7 +156,7 @@ def _read_tcc_db(db_path: str) -> list[PermissionEntry]:
                 risk_level=risk,
             ))
         conn.close()
-    except Exception:
+    except (sqlite3.Error, OSError, PermissionError):
         pass
     return entries
 

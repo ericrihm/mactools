@@ -56,5 +56,6 @@ def run_plist(cmd: list[str], timeout: int = 30) -> dict | None:
         if r.returncode != 0:
             return None
         return plistlib.loads(r.stdout)
-    except (subprocess.TimeoutExpired, FileNotFoundError, plistlib.InvalidFileException):
+    except (subprocess.TimeoutExpired, FileNotFoundError,
+            plistlib.InvalidFileException, ValueError):
         return None

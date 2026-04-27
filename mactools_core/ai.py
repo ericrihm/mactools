@@ -2,7 +2,6 @@
 
 from __future__ import annotations
 
-import json
 import subprocess
 from dataclasses import dataclass
 
@@ -46,8 +45,9 @@ def analyze(
         pass
 
     try:
+        prompt = f"{system_prompt}\n\n---\n\n{context}" if system_prompt else context
         r = subprocess.run(
-            ["claude", "-p", context, "--model", model],
+            ["claude", "-p", prompt, "--model", model],
             capture_output=True, text=True, timeout=120,
         )
         if r.returncode == 0:

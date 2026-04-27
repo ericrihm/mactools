@@ -2,9 +2,6 @@
 
 from __future__ import annotations
 
-import json
-import sys
-
 import click
 
 from mactools_core.output import color, md_table, print_json, severity_icon

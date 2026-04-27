@@ -2,13 +2,11 @@
 
 from __future__ import annotations
 
-import json
-import sys
 from dataclasses import asdict
 
 import click
 
-from mactools_core.output import color, severity_icon, print_json
+from mactools_core.output import color, severity_icon, print_json, format_bytes
 
 
 # ---------------------------------------------------------------------------
@@ -33,14 +31,7 @@ def _status_badge(ok: bool, warn: bool = False) -> str:
         return color("[!!]", "warning")
 
 
-def _fmt_bytes(b: int) -> str:
-    if b >= 1e12:
-        return f"{b / 1e12:.1f}TB"
-    if b >= 1e9:
-        return f"{b / 1e9:.1f}GB"
-    if b >= 1e6:
-        return f"{b / 1e6:.1f}MB"
-    return f"{b}B"
+_fmt_bytes = format_bytes
 
 
 def _print_findings(findings: list[dict]) -> None:

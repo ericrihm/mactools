@@ -326,10 +326,6 @@ def identify_findings(report: HealthReport) -> list[dict]:
         add("info", f"{report.services.failed} launch service(s) exited with non-zero status",
             "", "services")
 
-    # --- Hardware findings ---
-    if report.thermal.level not in ("nominal", ""):
-        pass  # already captured above in power
-
     # Sort: critical first, then warning, then info, then ok
     order = {"critical": 0, "warning": 1, "info": 2, "ok": 3}
     findings.sort(key=lambda f: order.get(f["severity"], 4))
