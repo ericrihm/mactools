@@ -5,10 +5,10 @@ build-backend = "setuptools.build_meta"
 [project]
 name = "mactools"
 version = "0.1.0"
-description = "macOS-native Claude-powered CLI tool suite — wraps Apple system tools with AI interpretation"
+description = "macOS-native AI-powered CLI tool suite — wraps Apple system tools with AI interpretation"
 requires-python = ">=3.12"
 license = {text = "MIT"}
-authors = [{name = "Eric Rihm", email = "eric@cobaltsystems.io"}]
+authors = [{name = "Eric Rihm"}]
 dependencies = [
     "click>=8.0",
 ]
