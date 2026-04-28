@@ -1,4 +1,4 @@
-"""opslog CLI — wraps macOS Unified Log with Claude AI interpretation."""
+"""opslog CLI — wraps macOS Unified Log with AI interpretation."""
 
 from __future__ import annotations
 
@@ -58,7 +58,7 @@ def _print_entries(entries: list[LogEntry], as_json: bool) -> None:
 
 def _run_analysis(entries: list[LogEntry], analysis_type: str, stats: LogStats | None = None) -> None:
     from mactools_opslog.ai import analyze_logs
-    click.echo(color(f"\nRunning Claude {analysis_type} analysis ({len(entries)} entries)...", "dim"))
+    click.echo(color(f"\nRunning AI {analysis_type} analysis ({len(entries)} entries)...", "dim"))
     result = analyze_logs(entries, analysis_type=analysis_type, stats=stats)
     if result.ok:
         click.echo(f"\n{color('AI Analysis', 'info')} ({result.model}):\n")
@@ -73,7 +73,7 @@ def _run_analysis(entries: list[LogEntry], analysis_type: str, stats: LogStats |
 
 @click.group()
 def cli() -> None:
-    """opslog — macOS Unified Log inspector with Claude AI interpretation."""
+    """opslog — macOS Unified Log inspector with AI interpretation."""
 
 
 # ---------------------------------------------------------------------------
@@ -90,7 +90,7 @@ def cli() -> None:
 @click.option("--json", "as_json", is_flag=True,
               help="Output as JSON.")
 @click.option("--analyze", is_flag=True,
-              help="Send results to Claude for analysis.")
+              help="Send results to AI for analysis.")
 def errors(last: str, process: str | None, limit: int, as_json: bool, analyze: bool) -> None:
     """Show errors and faults from the Unified Log."""
     predicate = 'level >= error'
@@ -249,7 +249,7 @@ def stream(process: str | None, level: str) -> None:
 @click.option("--json", "as_json", is_flag=True,
               help="Output as JSON.")
 @click.option("--analyze", is_flag=True,
-              help="Send triage results to Claude for interpretation.")
+              help="Send triage results to AI for interpretation.")
 def triage(last: str, as_json: bool, analyze: bool) -> None:
     """Auto-triage: group errors by subsystem/process, rank by severity."""
     from mactools_opslog.engine import triage_errors, build_triage_report

@@ -151,7 +151,7 @@ def list_cmd(vendor: str | None, running: bool, third_party: bool, as_json: bool
 @click.option("--json", "as_json", is_flag=True, default=False,
               help="Output as JSON.")
 @click.option("--analyze", is_flag=True, default=False,
-              help="Use AI to summarize findings (requires Anthropic API key or claude CLI).")
+              help="Use AI to summarize findings (requires Anthropic API key or codex CLI).")
 def audit(as_json: bool, analyze: bool) -> None:
     """Security audit: flag suspicious, unsigned, and persistence-heavy services."""
     services = _load_services(enrich=True)

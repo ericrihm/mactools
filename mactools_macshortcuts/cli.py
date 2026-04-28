@@ -13,7 +13,7 @@ from mactools_core.output import color, md_table, print_json
 
 @click.group()
 def cli() -> None:
-    """macshortcuts — Shortcuts Intelligence powered by Claude."""
+    """macshortcuts — Shortcuts Intelligence powered by AI."""
 
 
 def main() -> None:
@@ -66,7 +66,7 @@ def cmd_run(name: str, input_text: str | None) -> None:
 
 
 # ---------------------------------------------------------------------------
-# suggest — Claude suggests what shortcut to build
+# suggest — AI suggests what shortcut to build
 # ---------------------------------------------------------------------------
 
 @cli.command("suggest")
@@ -74,7 +74,7 @@ def cmd_run(name: str, input_text: str | None) -> None:
 @click.option("--json", "as_json", is_flag=True, help="Output as JSON.")
 @click.option("--analyze", "do_analyze", is_flag=True, default=True, hidden=True)
 def cmd_suggest(description: str, as_json: bool, do_analyze: bool) -> None:
-    """Ask Claude to suggest a shortcut for DESCRIPTION.
+    """Ask AI to suggest a shortcut for DESCRIPTION.
 
     DESCRIPTION is a natural-language description of the automation you want,
     e.g. "send today's calendar events to myself as a text message".
@@ -141,7 +141,7 @@ def cmd_audit(as_json: bool) -> None:
         click.echo(f"  Duplicates      : {color('none', 'ok')}")
 
     click.echo()
-    click.echo(color("Claude's Analysis", "info"))
+    click.echo(color("AI Analysis", "info"))
     click.echo("─" * 60)
     ai_result = ai_audit([s.name for s in audit.shortcuts])
     click.echo(ai_result.text)

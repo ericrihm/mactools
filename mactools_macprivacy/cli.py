@@ -28,7 +28,7 @@ def cli() -> None:
 
 @cli.command("audit")
 @click.option("--json", "as_json", is_flag=True, help="Output raw JSON.")
-@click.option("--analyze", is_flag=True, help="Send audit to Claude for AI risk assessment.")
+@click.option("--analyze", is_flag=True, help="Send audit to AI for risk assessment.")
 def cmd_audit(as_json: bool, analyze: bool) -> None:
     """Audit all TCC privacy permissions on this Mac."""
     click.echo(color("  Reading TCC database ...", "dim"), err=True)

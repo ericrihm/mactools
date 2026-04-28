@@ -13,7 +13,7 @@ from mactools_core.output import color, md_table, print_json
 
 @click.group()
 def cli() -> None:
-    """macdisk — Disk & APFS Intelligence powered by Claude."""
+    """macdisk — Disk & APFS Intelligence powered by AI."""
 
 
 def main() -> None:
@@ -26,7 +26,7 @@ def main() -> None:
 
 @cli.command("status")
 @click.option("--json", "as_json", is_flag=True, help="Output as JSON.")
-@click.option("--analyze", "do_analyze", is_flag=True, help="Ask Claude to explain the disk layout.")
+@click.option("--analyze", "do_analyze", is_flag=True, help="Ask AI to explain the disk layout.")
 def cmd_status(as_json: bool, do_analyze: bool) -> None:
     """Show disk status: APFS containers, volumes, capacity, and SMART health."""
     from mactools_macdisk.engine import build_disk_report, identify_disk_issues
@@ -111,7 +111,7 @@ def _run_explain_analysis(data: dict) -> None:
     from mactools_macdisk.ai import explain_disk_layout
     summary = _json.dumps(data, indent=2, default=str)
     click.echo()
-    click.echo(color("Claude's Analysis", "info"))
+    click.echo(color("AI Analysis", "info"))
     click.echo("─" * 60)
     result = explain_disk_layout(summary)
     click.echo(result.text)
@@ -206,14 +206,14 @@ def cmd_smart(as_json: bool) -> None:
 
 
 # ---------------------------------------------------------------------------
-# explain — Claude explains your disk layout in plain English
+# explain — AI explains your disk layout in plain English
 # ---------------------------------------------------------------------------
 
 @cli.command("explain")
 @click.option("--json", "as_json", is_flag=True, help="Output raw AI text as JSON.")
 @click.option("--analyze", "do_analyze", is_flag=True, default=True, hidden=True)
 def cmd_explain(as_json: bool, do_analyze: bool) -> None:
-    """Ask Claude to explain your disk layout in plain English."""
+    """Ask AI to explain your disk layout in plain English."""
     import json as _json
     from mactools_macdisk.engine import build_disk_report, identify_disk_issues
     from mactools_macdisk.ai import explain_disk_layout
@@ -232,6 +232,6 @@ def cmd_explain(as_json: bool, do_analyze: bool) -> None:
         print_json({"analysis": result.text, "model": result.model, "ok": result.ok})
         return
 
-    click.echo(color("Claude's Disk Explanation", "info"))
+    click.echo(color("AI Disk Explanation", "info"))
     click.echo("─" * 60)
     click.echo(result.text)

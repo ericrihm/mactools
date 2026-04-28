@@ -1,7 +1,8 @@
-"""Claude AI integration — API with CLI fallback."""
+"""AI integration — API with CLI fallback."""
 
 from __future__ import annotations
 
+import os
 import subprocess
 from dataclasses import dataclass
 
@@ -14,7 +15,7 @@ class AnalysisResult:
     ok: bool
 
 
-DEFAULT_MODEL = "claude-sonnet-4-6"
+DEFAULT_MODEL = os.environ.get("AI_MODEL", "claude-sonnet-4-6")
 
 
 def analyze(
@@ -47,7 +48,7 @@ def analyze(
     try:
         prompt = f"{system_prompt}\n\n---\n\n{context}" if system_prompt else context
         r = subprocess.run(
-            ["claude", "-p", prompt, "--model", model],
+            ["codex", "-p", prompt, "--model", model],
             capture_output=True, text=True, timeout=120,
         )
         if r.returncode == 0:
@@ -59,6 +60,6 @@ def analyze(
         pass
 
     return AnalysisResult(
-        text="Analysis unavailable — no API key or claude CLI found.",
+        text="Analysis unavailable — no API key or codex CLI found.",
         model=model, analysis_type="none", ok=False,
     )

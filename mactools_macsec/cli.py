@@ -18,7 +18,7 @@ def cli() -> None:
 
 @cli.command("audit")
 @click.option("--json", "as_json", is_flag=True, help="Output raw JSON.")
-@click.option("--analyze", is_flag=True, help="Send findings to Claude for AI analysis.")
+@click.option("--analyze", is_flag=True, help="Send findings to AI for analysis.")
 def cmd_audit(as_json: bool, analyze: bool) -> None:
     """Run a full security posture audit."""
     findings = audit_security()

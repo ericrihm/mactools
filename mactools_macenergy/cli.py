@@ -180,7 +180,7 @@ def thermal(as_json: bool) -> None:
 
 @cli.command()
 @click.option("--json", "as_json", is_flag=True, help="Output as JSON.")
-@click.option("--analyze", is_flag=True, help="Ask Claude for energy recommendations.")
+@click.option("--analyze", is_flag=True, help="Ask AI for energy recommendations.")
 def audit(as_json: bool, analyze: bool) -> None:
     """Full energy audit with issue detection and recommendations."""
     result = audit_energy()

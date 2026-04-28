@@ -38,7 +38,7 @@ SYSTEM_PROMPTS: dict[str, str] = {
 # ---------------------------------------------------------------------------
 
 def suggest_shortcut(context_text: str, model: str = DEFAULT_MODEL) -> AnalysisResult:
-    """Ask Claude to suggest a shortcut based on a description and existing library."""
+    """Ask AI to suggest a shortcut based on a description and existing library."""
     result = analyze(
         system_prompt=SYSTEM_PROMPTS["suggest"],
         context=context_text,
@@ -49,7 +49,7 @@ def suggest_shortcut(context_text: str, model: str = DEFAULT_MODEL) -> AnalysisR
 
 
 def audit_shortcuts(shortcut_names: list[str], model: str = DEFAULT_MODEL) -> AnalysisResult:
-    """Ask Claude to audit and categorize the user's shortcut library."""
+    """Ask AI to audit and categorize the user's shortcut library."""
     names_block = "\n".join(f"  - {n}" for n in shortcut_names) if shortcut_names else "  (none)"
     context = f"Installed shortcuts ({len(shortcut_names)} total):\n{names_block}"
     result = analyze(

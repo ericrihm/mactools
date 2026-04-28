@@ -22,7 +22,7 @@ def cli() -> None:
 
 @cli.command()
 @click.option("--json", "as_json", is_flag=True, help="Output as JSON.")
-@click.option("--analyze", is_flag=True, help="Ask Claude to explain the findings.")
+@click.option("--analyze", is_flag=True, help="Ask AI to explain the findings.")
 def audit(as_json: bool, analyze: bool) -> None:
     """Scan interesting defaults and show settings modified from factory values."""
     result = audit_defaults()
@@ -107,7 +107,7 @@ def read(domain: str, as_json: bool) -> None:
 @cli.command()
 @click.argument("key")
 @click.option("--json", "as_json", is_flag=True, help="Output as JSON.")
-@click.option("--analyze", is_flag=True, help="Ask Claude to explain the results.")
+@click.option("--analyze", is_flag=True, help="Ask AI to explain the results.")
 def search(key: str, as_json: bool, analyze: bool) -> None:
     """Search across all defaults domains for a matching key name."""
     click.echo(color(f"  Searching all domains for '{key}'…", "dim"), err=True)
@@ -142,7 +142,7 @@ def search(key: str, as_json: bool, analyze: bool) -> None:
 
 @cli.command()
 @click.option("--json", "as_json", is_flag=True, help="Output as JSON.")
-@click.option("--analyze", is_flag=True, help="Ask Claude for personalized recommendations.")
+@click.option("--analyze", is_flag=True, help="Ask AI for personalized recommendations.")
 def recommend(as_json: bool, analyze: bool) -> None:
     """Show power-user defaults recommendations."""
     recs = get_power_user_recommendations()

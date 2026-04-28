@@ -38,7 +38,7 @@ SYSTEM_PROMPTS: dict[str, str] = {
 # ---------------------------------------------------------------------------
 
 def explain_disk_layout(disk_summary: str, model: str = DEFAULT_MODEL) -> AnalysisResult:
-    """Ask Claude to explain a disk layout summary in plain English."""
+    """Ask AI to explain a disk layout summary in plain English."""
     result = analyze(
         system_prompt=SYSTEM_PROMPTS["explain"],
         context=disk_summary,
@@ -49,7 +49,7 @@ def explain_disk_layout(disk_summary: str, model: str = DEFAULT_MODEL) -> Analys
 
 
 def explain_issues(issues_summary: str, model: str = DEFAULT_MODEL) -> AnalysisResult:
-    """Ask Claude to explain and prioritize a list of disk issues."""
+    """Ask AI to explain and prioritize a list of disk issues."""
     result = analyze(
         system_prompt=SYSTEM_PROMPTS["issues"],
         context=issues_summary,

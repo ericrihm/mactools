@@ -14,7 +14,7 @@ from mactools_core.spotlight import get_metadata, search
 
 @click.group()
 def cli() -> None:
-    """macspot — Spotlight Intelligence powered by Claude."""
+    """macspot — Spotlight Intelligence powered by AI."""
 
 
 def main() -> None:
@@ -31,7 +31,7 @@ def main() -> None:
 @click.option("--limit", default=20, show_default=True, help="Maximum results to return.")
 @click.option("--json", "as_json", is_flag=True, help="Output as JSON.")
 def cmd_search(query: str, directory: str | None, limit: int, as_json: bool) -> None:
-    """Search using natural language — Claude translates to an mdfind predicate.
+    """Search using natural language — AI translates to an mdfind predicate.
 
     QUERY is a natural-language description, e.g. "PDFs modified this week".
     """

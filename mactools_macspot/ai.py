@@ -40,7 +40,7 @@ SYSTEM_PROMPTS: dict[str, str] = {
 # ---------------------------------------------------------------------------
 
 def translate_query(query: str, model: str = DEFAULT_MODEL) -> AnalysisResult:
-    """Ask Claude to translate a natural-language query into an mdfind predicate."""
+    """Ask AI to translate a natural-language query into an mdfind predicate."""
     result = analyze(
         system_prompt=SYSTEM_PROMPTS["search"],
         context=f"Translate this search query into an mdfind predicate: {query}",
@@ -51,7 +51,7 @@ def translate_query(query: str, model: str = DEFAULT_MODEL) -> AnalysisResult:
 
 
 def explain_health(health_text: str, model: str = DEFAULT_MODEL) -> AnalysisResult:
-    """Ask Claude to explain Spotlight index health in plain English."""
+    """Ask AI to explain Spotlight index health in plain English."""
     result = analyze(
         system_prompt=SYSTEM_PROMPTS["health"],
         context=health_text,

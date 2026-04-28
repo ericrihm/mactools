@@ -71,7 +71,7 @@ def suggest_shortcut(description: str, shortcuts: list[Shortcut] | None = None) 
     """Build an AI context string for shortcut recommendation.
 
     Provides the description alongside the list of already-installed shortcuts
-    so that Claude can avoid recommending duplicates and can reference
+    so that AI can avoid recommending duplicates and can reference
     existing shortcuts that might partially solve the request.
 
     Args:

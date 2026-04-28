@@ -89,12 +89,12 @@ def analyze_logs(
     model: str = DEFAULT_MODEL,
     stats: "LogStats | None" = None,
 ) -> AnalysisResult:
-    """Run Claude analysis on log entries.
+    """Run AI analysis on log entries.
 
     Args:
         entries: List of LogEntry objects to analyze.
         analysis_type: One of 'triage', 'explain', 'timeline'.
-        model: Claude model identifier.
+        model: AI model identifier.
         stats: Optional LogStats for additional context.
 
     Returns:

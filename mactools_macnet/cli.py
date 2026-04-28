@@ -22,7 +22,7 @@ def cli() -> None:
 
 @cli.command()
 @click.option("--json", "as_json", is_flag=True, help="Output as JSON.")
-@click.option("--analyze", is_flag=True, help="Ask Claude to interpret the network state.")
+@click.option("--analyze", is_flag=True, help="Ask AI to interpret the network state.")
 def status(as_json: bool, analyze: bool) -> None:
     """Full network overview: ports, DNS, proxy, active interface."""
     overview = get_full_overview()
@@ -190,7 +190,7 @@ def ports(as_json: bool) -> None:
 
 @cli.command()
 @click.option("--json", "as_json", is_flag=True, help="Output as JSON.")
-@click.option("--analyze", is_flag=True, help="Ask Claude for a diagnosis narrative.")
+@click.option("--analyze", is_flag=True, help="Ask AI for a diagnosis narrative.")
 def diagnose(as_json: bool, analyze: bool) -> None:
     """Diagnose common network issues: DNS conflicts, proxy misconfig, inactive interfaces."""
     overview = get_full_overview()

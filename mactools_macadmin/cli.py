@@ -12,7 +12,7 @@ from mactools_macadmin import engine
 def main():
     """macadmin — privileged macOS admin for AI agents.
 
-    Wraps sudo, SSH, Tailscale, and fleet operations so Claude Code
+    Wraps sudo, SSH, Tailscale, and fleet operations so Codex
     and other AI agents can perform system administration through
     a GUI askpass dialog instead of requiring a TTY.
     """

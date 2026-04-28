@@ -92,7 +92,7 @@ def cmd_check(path: str, as_json: bool) -> None:
 @click.option("--dir", "directory", default="/Applications", show_default=True,
               help="Directory to scan for .app bundles.")
 @click.option("--json", "as_json", is_flag=True, help="Output raw JSON.")
-@click.option("--analyze", is_flag=True, help="Send scan results to Claude for AI analysis.")
+@click.option("--analyze", is_flag=True, help="Send scan results to AI for analysis.")
 def cmd_scan(directory: str, as_json: bool, analyze: bool) -> None:
     """Scan all .app bundles for code signing status."""
     click.echo(color(f"  Scanning {directory} ...", "dim"), err=True)
