@@ -1,8 +1,0 @@
-{
-  "permissions": {
-    "allow": [
-      "Bash(pip install -e *)",
-      "Bash(python -m pytest tests/*)"
-    ]
-  }
-}
